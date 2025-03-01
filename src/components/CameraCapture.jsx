@@ -93,7 +93,6 @@ const CameraCapture = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-500 to-indigo-600">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full sm:w-4/5 md:w-2/3 lg:w-1/2">
-      <h1>Juju PhotoBox</h1>
         {collage ? (
           <div className="flex flex-col items-center">
             <img
