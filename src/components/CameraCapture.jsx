@@ -22,16 +22,21 @@ const CameraCapture = () => {
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = img.width;  // Ukuran gambar 1080p
+      canvas.height = img.height; // Ukuran gambar 1080p
+
+      // Menambahkan kecerahan pada gambar menggunakan filter
+      ctx.filter = 'brightness(1.2)'; // Menambah kecerahan gambar dengan 20%
+
       // Membalik gambar di canvas (mirror)
       ctx.scale(-1, 1);  // Membalikkan gambar secara horizontal
       ctx.drawImage(img, -img.width, 0); // Menggambar gambar yang sudah dibalik
+
       // Mendapatkan URL dari gambar yang sudah dimanipulasi
-      const mirroredImage = canvas.toDataURL('image/jpeg');
+      const mirroredImage = canvas.toDataURL('image/jpeg', 1.0);  // kualitas 1.0 untuk kualitas tertinggi
       const a = document.createElement('a');
       a.href = mirroredImage;
-      a.download = 'captured-photo-mirror.jpg';  // Nama file yang akan diunduh
+      a.download = 'captured-photo-mirror-1080p.jpg';  // Nama file yang akan diunduh
       a.click();
     };
   };
@@ -51,7 +56,7 @@ const CameraCapture = () => {
               onClick={handleDownload} // Fungsi untuk mendownload gambar yang sudah dimanipulasi
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-700"
             >
-              Download  Photo
+              Download 1080p Photo
             </button>
           </div>
         ) : (
@@ -60,13 +65,16 @@ const CameraCapture = () => {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             screenshotQuality={1}  // Menetapkan kualitas tertinggi untuk gambar
-            width="640"  // Menetapkan resolusi tinggi untuk live stream
+            width="1920"  // Resolusi tinggi (1080p)
             videoConstraints={{
-              facingMode: "user"
+              facingMode: "user",
+              width: 1920,  // Resolusi 1080p
+              height: 1080  // Resolusi 1080p
             }}
             className="rounded-lg"
             style={{
-              transform: "scaleX(-1)" // Membalik tampilan live kamera
+              transform: "scaleX(-1)", // Membalik tampilan live kamera
+              filter: "brightness(1.2)" // Menambah kecerahan pada live webcam
             }}
           />
         )}
