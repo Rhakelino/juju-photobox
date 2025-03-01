@@ -114,14 +114,15 @@ const CameraCapture = () => {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             screenshotQuality={1}  // Menetapkan kualitas tertinggi untuk gambar
-            width="1920"  // Resolusi tinggi (1080p)
+            width="100%"  // Resolusi tinggi (100% width agar responsif)
             videoConstraints={{
               facingMode: "user",
-              width: 1920,  // Resolusi 1080p
-              height: 1080  // Resolusi 1080p
+              width: '100%',  // Resolusi 100% untuk menyesuaikan layar
+              height: '100%'  // Resolusi 100% untuk menyesuaikan layar
             }}
             className="rounded-lg"
             style={{
+              objectFit: 'cover',  // Menjaga agar gambar tidak terdistorsi
               transform: "scaleX(-1)", // Membalik tampilan live kamera
               filter: "brightness(1.2)" // Menambah kecerahan pada live webcam
             }}
